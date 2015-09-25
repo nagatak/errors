@@ -4,6 +4,17 @@
 # user-supplied command line argument
 
 import sys
+import os
+
+
+# Custom error class
+class MyCustomError(Exception):
+    pass
+
+class CustomError(Exception):
+    def __init__(self, arg):
+        self.msg = arg
+
 
 def print_usage():
     """Print usage and exit"""
@@ -21,26 +32,55 @@ if len(sys.argv) != 2:
 error_type = sys.argv[1]
 
 if error_type == "assertion":
-    raise AssertionError
+    assert 1 > 2		
 elif error_type == "io":
-    raise IOError
+    f = open('/not/found/', 'r') 
 elif error_type == "import":
-    raise ImportError
+    from pickle import doesNotExist 
 elif error_type == "index":
-    raise IndexError
+    arr = ['a', 'b']
+    print arr[10]	 
 elif error_type == "key":
-    raise KeyError
+    dictionary = { 'a':0 }
+    print dictionary['z'] 
 elif error_type == "name":
-    raise NameError
+    print arr[0] 
 elif error_type == "os":
-    raise OSError
+    for i in range(10):
+        print i, os.ttyname(i)
 elif error_type == "type":
-    raise TypeError
+    a = ['a']
+    b = 1 
+    add = a[0] + b 
 elif error_type == "value":
-    raise ValueError
+    print chr(2048) 
 elif error_type == "zerodivision":
-    raise ZeroDivisionError
+    print 2/0 
+elif error_type =="iter":
+    l=[0]
+    i=iter(l)
+
+    print i
+    print i.next()
+    print i.next()
+elif error_type =="syntax":
+    print eval('five times three')
+elif error_type =="custom":
+    raise MyCustomError("Custom Error")
+elif error_type=="recursion":
+    sys.setrecursionlimit(1)
+    def func(f):
+        (f)
+    for i in range(0, 10):
+	func(func())
+elif error_type=="unbound":
+    var = 0 
+    def inc():
+        var += 1
+    inc()
 else:
     sys.stderr.write("Sorry, not able to throw a(n) ")
     sys.stderr.write(error_type + " error\n")
     print_usage()
+
+
