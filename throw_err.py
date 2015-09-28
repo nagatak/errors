@@ -23,6 +23,10 @@ def print_usage():
     sys.stderr.write("\tassertion, io, import, index\n")
     sys.stderr.write("\tkey, name, os, type, value,\n")
     sys.stderr.write("\tzerodivision\n")
+    sys.stderr.write("\tNew Errors:\n")
+    sys.stderr.write("\titer, syntax, recursion, unbound\n")
+    sys.stderr.write("\tcustom class:\n")
+    sys.stderr.write("\tcustom\n")
     sys.exit()
 
 # Check args
