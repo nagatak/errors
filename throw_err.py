@@ -5,6 +5,10 @@
 
 import sys
 import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("err", help="display name error")
 
 
 # Custom error class
@@ -33,51 +37,49 @@ def print_usage():
 if len(sys.argv) != 2:
     print_usage()
 
-error_type = sys.argv[1]
-
-if error_type == "assertion":
+if parser.parse_args().err == "assertion":
     assert 1 > 2		
-elif error_type == "io":
+elif parser.parse_args().err == "io":
     f = open('/not/found/', 'r') 
-elif error_type == "import":
+elif parser.parse_args().err == "import":
     from pickle import doesNotExist 
-elif error_type == "index":
+elif parser.parse_args().err == "index":
     arr = ['a', 'b']
     print arr[10]	 
-elif error_type == "key":
+elif parser.parse_args().err == "key":
     dictionary = { 'a':0 }
     print dictionary['z'] 
-elif error_type == "name":
+elif parser.parse_args().err == "name":
     print arr[0] 
-elif error_type == "os":
+elif parser.parse_args().err == "os":
     for i in range(10):
         print i, os.ttyname(i)
-elif error_type == "type":
+elif parser.parse_args().err == "type":
     a = ['a']
     b = 1 
     add = a[0] + b 
-elif error_type == "value":
+elif parser.parse_args().err == "value":
     print chr(2048) 
-elif error_type == "zerodivision":
+elif parser.parse_args().err == "zerodivision":
     print 2/0 
-elif error_type =="iter":
+elif parser.parse_args().err =="iter":
     l=[0]
     i=iter(l)
 
     print i
     print i.next()
     print i.next()
-elif error_type =="syntax":
+elif parser.parse_args().err =="syntax":
     print eval('five times three')
-elif error_type =="custom":
+elif parser.parse_args().err =="custom":
     raise MyCustomError("Custom Error")
-elif error_type=="recursion":
+elif parser.parse_args().err == "recursion":
     sys.setrecursionlimit(1)
     def func(f):
         (f)
     for i in range(0, 10):
 	func(func())
-elif error_type=="unbound":
+elif parser.parse_args().err == "unbound":
     var = 0 
     def inc():
         var += 1
